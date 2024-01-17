@@ -1,0 +1,6 @@
+(define (problem desire-prob)
+(:domain desire)
+(:objects pos1 pos2 - location)
+(:init (loc desiree pos1))
+(:goal (loc desiree pos2))
+)

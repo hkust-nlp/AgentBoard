@@ -1,0 +1,273 @@
+run:
+  max_num_steps: 30
+  wandb: True
+  project_name: eval-test
+  baseline_dir: data/baseline_results
+  log_path: ${PROJECT_PATH}/results/test
+# only provide example run_config here, please specify with arguments when running
+# --wandb --max_num_steps 30 --project_name ... --baseline_dir ... --log_path ...
+
+agent:
+  name: VanillaAgent
+  memory_size: 100
+  need_goal: True
+
+llm:
+  gpt-3.5-turbo-16k:
+      name: gpt
+      engine: gpt-3.5-turbo-16k
+      context_length: 16384 # 4096
+      use_azure: False
+      temperature: 0.
+      top_p: 1
+      retry_delays: 20
+      max_retry_iters: 15
+      stop: "\n"
+      use_parser: False
+  gpt-3.5-turbo-0613:
+      name: gpt
+      engine: gpt-3.5-turbo-0613
+      context_length: 4096
+      use_azure: False
+      temperature: 0.
+      top_p: 1
+      retry_delays: 20
+      max_retry_iters: 15
+      stop: "\n"
+      use_parser: False
+  gpt-35-turbo: # using gpt_azure llm would need azure versin of openai key
+      name: gpt_azure
+      engine: gpt-35-turbo
+      context_length: 4096
+      use_azure: True
+      temperature: 0.
+      top_p: 1
+      retry_delays: 20
+      max_retry_iters: 15
+      stop: "\n"
+      use_parser: False
+  text-davinci-003:
+      name: gpt_azure
+      engine: text-davinci-003
+      context_length: 4096
+      use_azure: True
+      temperature: 0.
+      top_p: 1
+      retry_delays: 20
+      max_retry_iters: 15
+      stop: "\n"
+      use_parser: False
+  gpt-4:
+      name: gpt_azure
+      engine: gpt-4
+      context_length: 8192
+      use_azure: True
+      temperature: 0.
+      top_p: 1
+      retry_delays: 20
+      max_retry_iters: 15
+      stop: "\n"
+      use_parser: False
+  claude2:
+      name: claude
+      engine: claude-2
+      temperature: 0.
+      top_p: 1
+      retry_delays: 10
+      max_retry_iters: 15
+      stop:
+        - "\n\nHuman:"
+      context_length: 100000
+      xml_split:
+        example: ["\n<example>\n", "</example>\n"]
+        text: ["<text>\n", "</text>\n"]
+        rule: ["<rule>\n", "</rule>\n"]
+        system_msg: ["<system_message>\n", "</system_message>\n"]
+        instruction: ["<instruction>\n", "</instruction>\n"]
+        goal: ["<goal>\n", "</goal>\n"]
+      use_parser: False
+  deepseek-67b:   # for opensource models, llm name should be either vllm/hg based on the vllm/huggingface inference architecture
+      name: vllm
+      engine: deepseek-ai/deepseek-llm-67b-chat
+      max_tokens: 100
+      temperature: 0
+      top_p: 1
+      stop:
+      context_length: 4096
+      dtype: float16
+      ngpu: 4
+      use_parser: True
+  codellama-13b:
+      name: vllm
+      engine: codellama/CodeLlama-13b-Instruct-hf
+      max_tokens: 100
+      temperature: 0
+      top_p: 1
+      stop:
+      context_length: 16384
+      dtype: float32
+      ngpu: 4
+      use_parser: True
+  codellama-34b:
+      name: vllm
+      engine: codellama/CodeLlama-34b-Instruct-hf
+      max_tokens: 100
+      temperature: 0
+      top_p: 1
+      stop:
+      context_length: 16384
+      dtype: float32
+      ngpu: 4
+      use_parser: True
+  lemur-70b:
+      name: vllm
+      engine: OpenLemur/lemur-70b-chat-v1
+      max_tokens: 100
+      temperature: 0.
+      top_p: 1
+      stop:
+      context_length: 4096
+      ngpu: 4
+      dtype: float16
+      use_parser: True
+  llama2-13b:
+      name: vllm
+      engine: /model_download/Llama-2-13b-chat-hf
+      max_tokens: 100
+      temperature: 0.
+      top_p: 1
+      stop:
+      context_length: 4096
+      dtype: float16
+      ngpu: 2
+      use_parser: True
+  llama2-70b:
+      name: vllm
+      engine:  meta-llama/Llama-2-70b-chat-hf
+      max_tokens: 100
+      temperature: 0.
+      top_p: 1
+      stop:
+      context_length: 4096
+      dtype: float16
+      ngpu: 4
+      use_parser: True
+
+  vicuna-13b-16k:
+      name: vllm
+      engine: lmsys/vicuna-13b-v1.5-16k
+      max_tokens: 100
+      temperature: 0.
+      top_p: 1
+      stop:
+      context_length: 16384
+      dtype: float16
+      ngpu: 2
+      use_parser: True
+
+  mistral-7b:
+      name: vllm
+      engine: mistralai/Mistral-7B-Instruct-v0.2
+      max_tokens: 100
+      temperature: 0.
+      top_p: 1
+      stop:
+      context_length: 32768
+      dtype: float16
+      ngpu: 2
+      use_parser: True
+
+env:
+  pddl:
+    name: pddl
+    game_name: [gripper, blockworld, barman, tyreworld]
+    env_num_per_task: 20
+    check_actions: "check valid actions"
+    init_prompt_path: ${PROJECT_PATH}/agentboard/prompts/VanillaAgent/pddl_vanilla_prompt.json
+    label_path: ${PROJECT_PATH}/data/pddl/test.jsonl
+
+  jericho:
+    name: jericho
+    game_name: ["905", "acorncourt", "afflicted","balances","dragon","jewel","library","omniquest","reverb","snacktime","zenon","zork1","zork2", "zork3","detective","night","pentari","weapon","huntdark","loose"]
+    game_dir: ${PROJECT_PATH}/data/jericho/z-machine-games-master/jericho-game-suite
+    label_path: ${PROJECT_PATH}/data/jericho/test.jsonl
+    check_actions: "check valid actions"
+    check_inventory: "inventory"
+    init_prompt_path: ${PROJECT_PATH}/agentboard/prompts/VanillaAgent/jericho_vanilla_prompt.json
+
+
+  babyai:
+    name: babyai
+    seed: 1234
+    game_level: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 27, 28, 29, 31, 32]
+    label_path: ${PROJECT_PATH}/data/babyai/test.jsonl
+    env_num_per_task: 4
+    check_actions: "check valid actions"
+    check_inventory: "inventory"
+    init_prompt_path: ${PROJECT_PATH}/agentboard/prompts/VanillaAgent/babyai_vanilla_prompt.json
+
+  tool-query:
+    name: tool-query
+    seed: 1234
+    dataset_dir: ${PROJECT_PATH}/data
+    result_dir: ${PROJECT_PATH}/results/query
+    check_actions: "check_valid_actions"
+    init_prompt_path: ${PROJECT_PATH}/agentboard/prompts
+  
+  tool-operation:
+    name: tool-operation
+    seed: 1234
+    dataset_dir: ${PROJECT_PATH}/data
+    result_dir: ${PROJECT_PATH}/results/operation
+    check_actions: "check_valid_actions"
+    init_prompt_path: ${PROJECT_PATH}/agentboard/prompts
+
+  scienceworld:
+    name: scienceworld
+    envStepLimit: 30
+    seed: 0
+    check_inventory: True
+    check_actions: check valid actions
+    init_prompt_path: ${PROJECT_PATH}/agentboard/prompts/VanillaAgent/scienceworld_base.json
+    label_path: ${PROJECT_PATH}/data/scienceworld/test.jsonl
+
+
+  alfworld:
+    name: alfworld
+    base_config: ${PROJECT_PATH}/agentboard/environment/alfworld/base_config.yaml
+    split: eval_out_of_distribution
+    batch_size: 1
+    label_path: ${PROJECT_PATH}/data/alfworld/test.jsonl
+    check_inventory: True
+    check_actions: check valid actions
+    init_prompt_path: ${PROJECT_PATH}/agentboard/prompts/VanillaAgent/alfworld_base.json
+  
+  webshop:
+    name: webshop
+    web_url: http://127.0.0.1:3000
+    subreward_floder: ${PROJECT_PATH}/agentboard/WebShop/subreward_log
+    max_step: 50
+    start_idx: 0
+    end_idx: 251
+    to_print: True
+    init_prompt_path: ${PROJECT_PATH}/agentboard/prompts/VanillaAgent/webshop_vanilla.json
+    label_path: ${PROJECT_PATH}/data/webshop/test.jsonl
+
+  webarena:
+    name: webarena
+    render: True
+    headless: True
+    slow_mo: 100
+    observation_type: accessibility_tree
+    current_viewport_only: True
+    viewport_size: {"width": 1280, "height": 720}
+    save_trace_enabled: True
+    sleep_after_execution: 2.5
+    action_set_tag: id_accessibility_tree
+    render_screenshot: True
+    init_prompt_path: ${PROJECT_PATH}/agentboard/prompts/VanillaAgent/webbrowse_vanilla.json
+    label_path: ${PROJECT_PATH}/data/webarena/test.jsonl
+    start_test_id: 0
+    test_case_count: 245
+    parsing_failure_th: 5
+    repeating_action_failure_th: 5

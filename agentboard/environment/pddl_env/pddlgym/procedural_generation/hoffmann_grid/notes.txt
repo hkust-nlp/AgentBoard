@@ -1,0 +1,3 @@
+The command used to generate problems for manygrid:
+
+./grid -x 12 -y 12 -t 5 -k 55555 -l 55555 -p 25

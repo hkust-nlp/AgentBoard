@@ -1,0 +1,20 @@
+(define (problem roverprob1234)
+ (:domain rover)
+
+ (:init (at_rover0_waypoint3) (at_soil_sample_waypoint0)
+ (empty_rover0store) (at_soil_sample_waypoint2)
+ (at_soil_sample_waypoint3) (at_rock_sample_waypoint1)
+ (at_rock_sample_waypoint2) (at_rock_sample_waypoint3) (ok_a0) (ok_a1)
+ (ok_o0) (negof_once_o0) (ok_o1) (negof_once_o1) (ok_o2)
+ (negof_once_o2) (ok_o3) (negof_once_o3) (ok_sb3) (ok_sb7) (ok_sb8)
+ (ok_sb11) (ok_sb12) (ok_sb13) (ok_sb16) (ok_sb17) (ok_sb19) (ok_sb20)
+ (normal-mode) (= (total-cost) 0))
+
+ (:goal (and (communicated_soil_data_waypoint2)
+ (communicated_rock_data_waypoint3)
+ (communicated_image_data_objective1_high_res) (a0) (a1) (e0) (e1)
+ (e2) (o0) (o1) (o2) (o3) (sb3) (sb7) (sb8) (sb11) (sb12) (sb13)
+ (sb16) (sb17) (sb19) (sb20)))
+
+ (:metric minimize (total-cost))
+)

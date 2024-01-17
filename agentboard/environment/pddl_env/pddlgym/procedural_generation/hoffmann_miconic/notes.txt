@@ -1,0 +1,3 @@
+The command used to generate problems for manymiconic:
+
+./miconic -f 250 -p 80

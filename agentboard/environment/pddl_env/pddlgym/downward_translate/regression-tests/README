@@ -1,0 +1,7 @@
+- issue405: The goal violates a mutex, which the translator should
+  detect and produce a trivial unsolvable problem. The search code
+  should then report the problem as unsolvable. (It may be the case
+  that this example is a bit fragile because it's based on
+  Blocksworld, and I guess there's no guarantee which of the two major
+  Blocksworld encodings we get. I think only one of them will detect
+  that there is a mutex violation.)

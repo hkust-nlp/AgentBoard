@@ -1,0 +1,4 @@
+The command used to generate problems for manylogistics:
+
+./logistics -a 50 -c 50 -s 2 -p 20
+
