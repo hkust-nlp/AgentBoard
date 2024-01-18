@@ -26,7 +26,9 @@ cd ..
 ## Webshop
 # Install Environment Dependencies via `conda`
 conda install mkl=2021
+
 conda install -c pytorch faiss-cpu
+
 conda install -c conda-forge openjdk=11
 
 # Build search engine index
