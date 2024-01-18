@@ -21,11 +21,7 @@ cd alfworld
 pip install -r requirements.txt
 pip install .
 cd ..
-
 ##
-
-#install openai related
-pip install openai python-dotenv bs4
 
 ## Webshop
 # Install Environment Dependencies via `conda`
@@ -45,16 +41,7 @@ cd ../../../
 
 else
 ## Webarena
-  if [ $OS = UBUNTU ]; then
-    playwright install
-    python -m playwright install
-
-    Xvfb :99 -screen 0 1280x720x24 &
-    export DISPLAY=:99
-  else
-    python -m playwright install
-
-    Xvfb :99 -screen 0 1280x720x24 &
-    export DISPLAY=:99
-  fi
+  playwright install
+  Xvfb :99 -screen 0 1280x720x24 &
+  export DISPLAY=:99
 fi
