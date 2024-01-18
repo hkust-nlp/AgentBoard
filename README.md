@@ -94,13 +94,7 @@ tar -zxvf data.tar.gz
 
 **Step 4. Set up the environment for tasks except WebArena**
 ```shell
-# For Ubuntu or Debian
-INSTALL_WEBARENA=false OS=UBUNTU bash ./setup.sh  
-
-#-----------------------------------------------#
-
-# For CentOS (Alternative)
-INSTALL_WEBARENA=false OS=CENTOS bash ./setup.sh
+INSTALL_WEBARENA=false bash ./setup.sh
 
 # After running the above command, the env will support other tasks than WebArena
 ```
@@ -123,13 +117,7 @@ dnf list installed | grep dbus  # will return the dbus info
 
 If so, you may install the webarena environment directly.
 ```shell
-# For Ubuntu or Debian
-INSTALL_WEBARENA=true OS=UBUNTU bash ./setup.sh
-
-#-----------------------------------------------#
-
-# For CentOS (Alternative)
-INSTALL_WEBARENA=true OS=CENTOS bash ./setup.sh
+INSTALL_WEBARENA=true bash ./setup.sh
 ```
 
 If not, please jump to Step 6 or [Installation by Docker](#52-installation-by-docker)
@@ -147,7 +135,7 @@ apt-get install dbus
 sudo apt-get update
 sudo apt-get install xvfb
 
-INSTALL_WEBARENA=true OS=UBUNTU bash ./setup.sh
+INSTALL_WEBARENA=true bash ./setup.sh
 #--------------------------------------------------------#
 
 # For Centos
@@ -159,7 +147,7 @@ yum install -y dbus-x11
 yum update
 yum install -y Xvfb
 
-INSTALL_WEBARENA=true OS=CENTOS bash ./setup.sh
+INSTALL_WEBARENA=true bash ./setup.sh
 ```
 </details>
 
