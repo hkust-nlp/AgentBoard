@@ -334,6 +334,8 @@ python agentboard/eval_main.py --cfg eval_configs/main_results_all_tasks.yaml \
                     --baseline_dir data/baseline_results \
 ```
 
+Before running, you need to setup wandb login or environment variable as instructed in [quick-start](#setup-environment-variables-in-agentboardenv). The visualization results would be both stored offline at `\wandb` and online at `https://wandb.ai/{your_wandb_id}/{project_name}`. Note that if your run is not logged online, you could sync local runs to wandb online with `wandb sync [OPTIONS] [PATH]..` as detailed in [wandb docs](https://docs.wandb.ai/ref/cli/wandb-sync).
+
 For more information about the features about Weights&Bias visualization, Pleae kindly check this [Blog](https://wandb.ai/agentboard/llm-agent-eval-gpt-35-turbo-all/reports/Using-Wandb-to-Launch-AgentBoard--Vmlldzo2MTg1Njc4) for more information.
 We also provide example WandB logging pages for [GPT-4](https://wandb.ai/agentboard/llm-agent-eval-gpt-4-all), [GPT-3.5-Turbo](https://wandb.ai/agentboard/llm-agent-eval-gpt-35-turbo-all), and [DeepSeek-67b](https://wandb.ai/agentboard/llm-agent-eval-deepseek-67b-all).
 
