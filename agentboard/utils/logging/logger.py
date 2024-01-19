@@ -318,7 +318,10 @@ class TaskLogger:
         match = re.match(pattern, line)
         if match:
             i = int(match.group(1))
-            sr = float(match.group(2))
+            sr_temp == match.group(2)
+            if sr_temp=="True": sr_temp = 1 
+            if sr_temp=="False": sr_temp = 0
+            sr = float(sr_temp)
             score = float(match.group(3))
             grounding_acc = float(match.group(4))
             score_state_str = match.group(5)
