@@ -57,7 +57,7 @@ Click to expand the table of contents
 - [🚀 Quick Start](#-quick-start)
   - [Setup Environment](#setup-environment)
   - [Evaluate Models](#evaluate-models)
-- [Launch AgentBoard Analytical Evaluation Panel](#launch-agentboard-analytical-evaluation-panel)
+  - [Launch AgentBoard Analytical Evaluation Panel](#launch-agentboard-analytical-evaluation-panel)
 - [Data](#data)
   - [Data Overview](#data-overview)
   - [Download Link](#download-link)
@@ -286,7 +286,7 @@ python agentboard/eval_main.py \
 We now offer configuration for 12 SOTA LLM models (`gpt-4`,`gpt-3.5-turbo-0613`, `text-davinci-003`,`claude2`,`deepseek-67b`,`lemur-70b`, `mistral-7b`,`codellama-13b(34b)`,`llama2-13b(70b)`,`vicuna-13b-16k`) and a simple reflex agent based on act-only prompting. You could also customize your own [agents](https://github.com/hkust-nlp/AgentBoard/blob/main/assets/agent_customization.md) and [LLMs](https://github.com/hkust-nlp/AgentBoard/blob/main/assets/llm_customization.md). Models supported by [vLLM](https://github.com/vllm-project/vllm) should be generally supported in AgentBoard, while different models may require specific prompt templates.
 
 
-## Launch AgentBoard Analytical Evaluation Panel
+### Launch AgentBoard Analytical Evaluation Panel
 AgentBoard integrates illustrative [Weights&Bias](https://wandb.ai/site) visualization to help researchers better systematically analyze LLM agents. You can simply turn on `--wandb` switch in the arguments and customize the `project_name` and `baseline_dir` of your wandb project as the evaluation command above.
 
 Before running, you need to setup wandb login or environment variable as instructed in [quick-start](#setup-environment-variables-in-agentboardenv). The visualization results would be both stored offline at `\wandb`. Normally after executing the evaluation command, you can visualize the live AgentBoard panel online at `https://wandb.ai/{your_wandb_id}/{project_name}`. We provide example WandB logging pages for [GPT-4](https://wandb.ai/agentboard/llm-agent-eval-gpt-4-all), [GPT-3.5-Turbo](https://wandb.ai/agentboard/llm-agent-eval-gpt-35-turbo-all), and [DeepSeek-67b](https://wandb.ai/agentboard/llm-agent-eval-deepseek-67b-all).
