@@ -33,7 +33,7 @@
 AgentBoard emphasizes **analytical evaluation** for Large Language Models (LLMs) as generalist agents to perceive and act within various environments. It outlines four principles for constructing a benchmark to evaluate LLMs as generalist agents:
  1. **Task Diversity**: AgentBoard incorporates 9 distinct tasks to comprehensively understand the generalist ability of LLM agents, which is built upon LLM's extensive knowledge base and exceptional scenario comprehension.
  2. **Multi-round Intercation**: AgentBoard provides multi-round interaction between agents and environment, which is necessary to reflect the evolutionary nature of human intelligence, which continuously receives information and adapts towards the environment.
- 3. **Partially-Observable Environments **: In AgentBoard, the complete state of the environment is not available to the agent, which assesses agent world modeling ability as additional knowledge needs to be acquired through online
+ 3. **Partially-Observable Environments**: In AgentBoard, the complete state of the environment is not available to the agent, which assesses agent world modeling ability as additional knowledge needs to be acquired through online
 exploration.
  4. **Analytical Evaluation**: AgentBoard is a systematic evaluation platform: it includes a user-friendly script to construct goal-oriented reflex agents for a range of models, and features a panel for visualizing and interpreting results across multiple dimensions of agent proficiency, including *fine-grained progress rates, grounding accuracy, performance breakdown for hard and easy examples, long-range in- teractions, detailed performance across various sub-skills, and trajectory with friendly visualization*
 
