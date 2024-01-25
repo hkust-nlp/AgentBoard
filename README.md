@@ -312,8 +312,7 @@ AgentBoard outlines five principles for constructing a benchmark to evaluate LLM
  2. **Multi-round Intercation**: AgentBoard provides multi-round interaction between agents and environment, which is necessary to reflect the evolutionary nature of human intelligence, which continuously receives information and adapts towards the environment.
  3. **Environments Partially-Observable**: In AgentBoard, the complete state of the environment is not available to the agent, which assesses agent world modeling ability as additional knowledge needs to be acquired through online
 exploration.
- 4. **Fine-grained Reward**: AgentBoard provides fine-grained
-rewards, which are necessary to track stage-wise progress and differentiate performance among LLM models, emphasizing their unique ability to break complex goals into manageable subgoals
+ 4. **Fine-grained Metrics**: AgentBoard provides progress rates as fine-grained metrics, which are necessary to track stage-wise progress and differentiate performance among LLM models, emphasizing their unique ability to break complex goals into manageable subgoals
  5. **Systematic Evaluation**: AgentBoard is a systematic platform: it includes a user-friendly script to construct goal-oriented reflex agents for a range of models, and features a panel for visualizing and interpreting results across multiple dimensions of agent proficiency.
 
 ## 4. Leaderboard
