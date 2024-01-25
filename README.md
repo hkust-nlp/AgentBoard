@@ -388,7 +388,7 @@ You can download the whole evaluation data by running the following command:
 ```shell
 wget https://huggingface.co/datasets/hkust-nlp/agentboard/resolve/main/data.tar.gz
 ```
-Please uncommpress the file and move the data to `AgentBoard/data`.
+Please uncompress the file and move the data to `AgentBoard/data`.
 ```shell
 cd AgentBoard
 mkdir data
