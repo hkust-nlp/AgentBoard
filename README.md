@@ -18,7 +18,7 @@
   🌐 <a href="https://hkust-nlp.github.io/agentboard">Website</a> |
   🏆 <a href="https://hkust-nlp.github.io/agentboard/static/leaderboard.html">Leaderboard</a> |
   📚 <a href="https://huggingface.co/datasets/hkust-nlp/agentboard">Data</a> |
-  📃 <a href="">Paper</a> |
+  📃 <a href="https://arxiv.org/pdf/2401.13178.pdf">Paper</a> |
   📊 <a href="https://wandb.ai/agentboard/llm-agent-eval-gpt-35-turbo-all/reports/Using-Wandb-to-Launch-AgentBoard--Vmlldzo2MTg1Njc4">Panel</a>
 
 </div>
