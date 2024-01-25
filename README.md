@@ -13,12 +13,11 @@
 </div>
 
 <div align="center">
-
   <!-- <a href="#model">Model</a> • -->
   🌐 <a href="https://hkust-nlp.github.io/agentboard">Website</a> |
   🏆 <a href="https://hkust-nlp.github.io/agentboard/static/leaderboard.html">Leaderboard</a> |
   📚 <a href="https://huggingface.co/datasets/hkust-nlp/agentboard">Data</a> |
-  📃 <a href="https://arxiv.org/pdf/2401.13178.pdf">Paper</a> |
+  📃 <a href="https://arxiv.org/abs/2401.13178">Paper</a> |
   📊 <a href="https://wandb.ai/agentboard/llm-agent-eval-gpt-35-turbo-all/reports/Using-Wandb-to-Launch-AgentBoard--Vmlldzo2MTg1Njc4">Panel</a>
 
 </div>
@@ -26,38 +25,57 @@
 
 
 
-## 1. What's New
+## What's New
 - **[2024.01.15]** 📣 AgentBoard is released.
 
+## Introduction
+
+AgentBoard emphasizes **analytical evaluation** for Large Language Models (LLMs) as generalist agents to perceive and act within various environments. It outlines four principles for constructing a benchmark to evaluate LLMs as generalist agents:
+ 1. **Task Diversity**: AgentBoard incorporates 9 distinct tasks to comprehensively understand the generalist ability of LLM agents, which is built upon LLM's extensive knowledge base and exceptional scenario comprehension.
+ 2. **Multi-round Intercation**: AgentBoard provides multi-round interaction between agents and environment, which is necessary to reflect the evolutionary nature of human intelligence, which continuously receives information and adapts towards the environment.
+ 3. **Partially-Observable Environments **: In AgentBoard, the complete state of the environment is not available to the agent, which assesses agent world modeling ability as additional knowledge needs to be acquired through online
+exploration.
+ 4. **Analytical Evaluation**: AgentBoard is a systematic evaluation platform: it includes a user-friendly script to construct goal-oriented reflex agents for a range of models, and features a panel for visualizing and interpreting results across multiple dimensions of agent proficiency, including *fine-grained progress rates, grounding accuracy, performance breakdown for hard and easy examples, long-range in- teractions, detailed performance across various sub-skills, and trajectory with friendly visualization*
+
+<div align="center">
+
+<img src="./assets/main_graph.png">
+<!-- <h1> A nice pic from our website </h1> -->
+
+</div>
 
 
-## 2. Table of Contents
+
+## Table of Contents
 <details>
 <summary>
 Click to expand the table of contents
 </summary>
 
-- [1. What's New](#1-whats-new)
-- [2. Table of Contents](#2-table-of-contents)
+- [What's New](#whats-new)
+- [Introduction](#introduction)
 - [🚀 Quick Start](#-quick-start)
-- [3. Introduction](#3-introduction)
-- [4. Leaderboard](#4-leaderboard)
-- [5. Online Visualization and Logging](#5-agentboard-online-visualization-and-logging)
-- [6. Data](#6-data)
-  - [6.1 Data Overview](#61-data-overview)
-  - [6.2 Download Link](#62-download-link)
-  - [6.3 Data Fields](#63-data-fields)
-- [7. Evaluation](#7-evaluation)
-  - [7.1 Evaluation Preparation](#71-evaluation-preparation)
-  - [7.2 Running Proprietary Models](#72-running-proprietary-models)
-  - [7.3 Running Open-source Models](#73-running-open-source-models)
-  - [7.4 Code Structure](#74-code-structure)
-  - [7.5 LLM Customization](#75-llm-customization)
-  - [7.6 Agent Customization](#76-agent-customization)
-  - [7.7 Runtime Estimation](#77-runtime-estimation)
-- [️8. Citation](#️8-citation)
-- [9. License](#9-license)
+  - [Setup Environment](#setup-environment)
+  - [Evaluate Models](#evaluate-models)
+- [Launch AgentBoard Analytical Evaluation Panel](#launch-agentboard-analytical-evaluation-panel)
+- [Data](#data)
+  - [Data Overview](#data-overview)
+  - [Download Link](#download-link)
+- [Evaluation Details](#evaluation-details)
+  - [Evaluation Preparation](#evaluation-preparation)
+    - [Internet Access](#internet-access)
+    - [Environment Preparation](#environment-preparation)
+  - [Running Proprietary Models](#running-proprietary-models)
+    - [For Tasks except WebShop](#for-tasks-except-webshop)
+    - [For WebShop](#for-webshop)
+  - [Running Open-source Models](#running-open-source-models)
+  - [LLM Customization](#llm-customization)
+  - [Agent Customization](#agent-customization)
+  - [Runtime Estimation](#runtime-estimation)
+- [️Citation](#️citation)
+- [License](#license)
 </details>
+
 
 ## 🚀 Quick Start 
 
@@ -225,7 +243,7 @@ WANDB_API_KEY=...
 <summary>
 Click to expand API key setup procedures.
 </summary>
-  
+
 **Variables 1: API keys for Tool tasks**
 
 Since API keys for **Tool** tasks are private, we do not provide them in this repo.
@@ -265,14 +283,24 @@ python agentboard/eval_main.py \
     --project_name evaluate-gpt-35-turbo-0613 \
     --baseline_dir ./data/baseline_results
 ```
-⚠️ We now offer configuration for 12 SOTA LLM models (`gpt-4`,`gpt-3.5-turbo-0613`, `text-davinci-003`,`claude2`,`deepseek-67b`,`lemur-70b`, `mistral-7b`,`codellama-13b(34b)`,`llama2-13b(70b)`,`vicuna-13b-16k`) and a simple reflex agent based on [Act](https://arxiv.org/abs/2210.03629). You could also customize your own [agents](https://github.com/hkust-nlp/AgentBoard/blob/main/assets/agent_customization.md) and [LLMs](https://github.com/hkust-nlp/AgentBoard/blob/main/assets/llm_customization.md). 
-### Check and Analyze Results
+We now offer configuration for 12 SOTA LLM models (`gpt-4`,`gpt-3.5-turbo-0613`, `text-davinci-003`,`claude2`,`deepseek-67b`,`lemur-70b`, `mistral-7b`,`codellama-13b(34b)`,`llama2-13b(70b)`,`vicuna-13b-16k`) and a simple reflex agent based on act-only prompting. You could also customize your own [agents](https://github.com/hkust-nlp/AgentBoard/blob/main/assets/agent_customization.md) and [LLMs](https://github.com/hkust-nlp/AgentBoard/blob/main/assets/llm_customization.md). Models supported by [vLLM](https://github.com/vllm-project/vllm) should be generally supported in AgentBoard, while different models may require specific prompt templates.
+
+
+## Launch AgentBoard Analytical Evaluation Panel
+AgentBoard integrates illustrative [Weights&Bias](https://wandb.ai/site) visualization to help researchers better systematically analyze LLM agents. You can simply turn on `--wandb` switch in the arguments and customize the `project_name` and `baseline_dir` of your wandb project as the evaluation command above.
+
+Before running, you need to setup wandb login or environment variable as instructed in [quick-start](#setup-environment-variables-in-agentboardenv). The visualization results would be both stored offline at `\wandb`. Normally after executing the evaluation command, you can visualize the live AgentBoard panel online at `https://wandb.ai/{your_wandb_id}/{project_name}`. We provide example WandB logging pages for [GPT-4](https://wandb.ai/agentboard/llm-agent-eval-gpt-4-all), [GPT-3.5-Turbo](https://wandb.ai/agentboard/llm-agent-eval-gpt-35-turbo-all), and [DeepSeek-67b](https://wandb.ai/agentboard/llm-agent-eval-deepseek-67b-all).
+
+Note that if your run is not logged online (on a cluster without internet), you could later sync local runs to wandb online with `wandb sync [OPTIONS] [PATH]..` as detailed in [wandb docs](https://docs.wandb.ai/ref/cli/wandb-sync). For more information about the features of the AgentBoard panel, Please kindly check this [Blog](https://wandb.ai/agentboard/llm-agent-eval-gpt-35-turbo-all/reports/Using-Wandb-to-Launch-AgentBoard--Vmlldzo2MTg1Njc4) for more information.
+
+
+#### Local log files
 In addition to online results viewing, local logs are automatically stored in `{log_path}`. In WebArena, we additionally support more detailed trajectory files, including web page screenshots and network traffic records.
 <details>
   <summary>
     Log file organization: 
   </summary>
-  
+
 ```
 {log_path}
 ├── logs                    # detailed example-wise logs for each task
@@ -292,56 +320,10 @@ In addition to online results viewing, local logs are automatically stored in `{
 ```
 </details>
 
-An online visualization page would be ready on Weights&Bias. The link would be provided during running `https://wandb.ai/{your_wandb_id}/{project_name}`, showing the same *main results*,*dimensional analysis*,*steps analysis*, *trajectory explorer* for your LLM agent compared to baselines. Please refer to this [blog](https://wandb.ai/agentboard/llm-agent-eval-gpt-35-turbo-all/reports/Using-Wandb-to-Launch-AgentBoard--Vmlldzo2MTg1Njc4) for a detailed tutorial on using and interpretating AgentBoard.
 
-<div align="center">
+## Data
 
-<img src="./assets/main_graph.png">
-<!-- <h1> A nice pic from our website </h1> -->
-
-</div>
-
-
-
-## 3. Introduction
-
-
-AgentBoard explores the potential of Large Language Models (LLMs) as generalist agents capable of perceiving and acting within various environments.
-AgentBoard outlines five principles for constructing a benchmark to evaluate LLMs as generalist agents:
- 1. **Task Diversity**: AgentBoard incorporates 9 distinct tasks to comprehensively understand the generalist ability of LLM agents , which is built upon LLM's extensive knowledge base and exceptional scenario comprehension.
- 2. **Multi-round Intercation**: AgentBoard provides multi-round interaction between agents and environment, which is necessary to reflect the evolutionary nature of human intelligence, which continuously receives information and adapts towards the environment.
- 3. **Environments Partially-Observable**: In AgentBoard, the complete state of the environment is not available to the agent, which assesses agent world modeling ability as additional knowledge needs to be acquired through online
-exploration.
- 4. **Fine-grained Reward**: AgentBoard provides fine-grained
-rewards, which are necessary to track stage-wise progress and differentiate performance among LLM models, emphasizing their unique ability to break complex goals into manageable subgoals
- 5. **Systematic Evaluation**: AgentBoard is a systematic platform: it includes a user-friendly script to construct goal-oriented reflex agents for a range of models, and features a panel for visualizing and interpreting results across multiple dimensions of agent proficiency.
-
-## 4. Leaderboard
-We provide a leaderboard for the community to rank open-source models and closed-source models.
-
-Please check our website: [AgentBoard Leaderboard](https://hkust-nlp.github.io/agentboard/static/leaderboard.html) for more details.
-## 5. AgentBoard Online Visualization and Logging
-AgentBoard integrates illustrative [Weights&Bias](https://wandb.ai/site) visualization to help researchers to better systematically analyze LLM agents.
-
-You can simply turn on `--wandb` switch in the arguments and customize the `project_name` and `baseline_dir` of your wandb project.
-```shell
-python agentboard/eval_main.py --cfg eval_configs/main_results_all_tasks.yaml \
-                    --tasks alfworld \
-                    --model  lemur-70b \
-                    --log_path results/lemur-70b \
-                    --wandb \
-                    --project_name evaluate-lemur-70b \
-                    --baseline_dir data/baseline_results \
-```
-
-Before running, you need to setup wandb login or environment variable as instructed in [quick-start](#setup-environment-variables-in-agentboardenv). The visualization results would be both stored offline at `\wandb` and online at `https://wandb.ai/{your_wandb_id}/{project_name}`. Note that if your run is not logged online, you could sync local runs to wandb online with `wandb sync [OPTIONS] [PATH]..` as detailed in [wandb docs](https://docs.wandb.ai/ref/cli/wandb-sync).
-
-For more information about the features about Weights&Bias visualization, Pleae kindly check this [Blog](https://wandb.ai/agentboard/llm-agent-eval-gpt-35-turbo-all/reports/Using-Wandb-to-Launch-AgentBoard--Vmlldzo2MTg1Njc4) for more information.
-We also provide example WandB logging pages for [GPT-4](https://wandb.ai/agentboard/llm-agent-eval-gpt-4-all), [GPT-3.5-Turbo](https://wandb.ai/agentboard/llm-agent-eval-gpt-35-turbo-all), and [DeepSeek-67b](https://wandb.ai/agentboard/llm-agent-eval-deepseek-67b-all).
-
-## 6. Data
-
-### 6.1 Data Overview
+### Data Overview
 AgentBoard is composed of 9 diverse tasks which can be divided into 4 types, including **Embodied AI**, **Game**, **Web**, and **Tool**:
 
 
@@ -401,7 +383,7 @@ To help researchers quickly understand evaluation data of each task, we provide 
 
 > Note: Please download the dataset from the link provided below for the reason that the data in Dataset Viewer is not complete.
 
-### 6.2 Download Link
+### Download Link
 You can download the whole evaluation data by running the following command:
 ```shell
 wget https://huggingface.co/datasets/hkust-nlp/agentboard/resolve/main/data.tar.gz
@@ -451,30 +433,9 @@ data
 
 </details>
 
-### 6.3 Data Fields
-We take an instance from the `ScienceWorld` task as an example to illustrate the data fields of evaluation data.
-```json
-{
-  "task": "scienceworld",
-  "id": 0,
-  "goal": "Your task is to find the animal with the longest life span.  The animals are in the 'outside' location.  Focus on the animal with the longest life span.",
-  "subgoals": ["You move to the outside.", "You focus on the crocodile egg."],
-  "difficulty": "easy",
-  "additional_info": {"var": 5, "env_name": "lifespan-longest-lived"}
-}
-```
-Details of the data fields are as follows:
-| Field Name | Description |
-|------------|-------------|
-| `task` | The task name of the example, e.g. `alfworld`, `babyai`, `jericho`, `pddl`, `scienceworld`, `tool-operation`, `tool-query`, `webarena`, `webshop`. |
-| `id` | The id of the example. |
-| `goal` | The goal of the example. |
-| `subgoals` | The subgoals of the example which adopts subgoal as progress rate metric. |
-| `difficulty` | The difficulty of the example, e.g. `easy`, `hard`. |
-| `additional_info` | The additional information of the example, each example has its own additional information. |
 
-## 7. Evaluation
-### 7.1 Evaluation Preparation
+## Evaluation Details
+### Evaluation Preparation
 
 #### Internet Access
 For regions with Internet restrictions, to evaluate the **Tool-Query**, **Tool-Operation** and **WebArena** tasks, please make sure that the machine can access the Internet.
@@ -485,7 +446,7 @@ You can check whether you have network issues by observing the output during the
 We provide two ways to install the environment of AgentBoard, as specified in [QuickStart](#setup-environment).
 
 
-### 7.2 Running Proprietary Models
+### Running Proprietary Models
 In this section, we provide a script to evaluate the closed-source models on each task.
 
 Please do not forget to set the environment variables (e.g., `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`) before running the following commands.
@@ -538,7 +499,7 @@ python agentboard/eval_main.py \
     --baseline_dir ./data/baseline_results
 ```
 
-### 7.3 Running Open-source Models
+### Running Open-source Models
 In AgentBoard, we have pre-supported the following 8 open-source models, by default we use `vLLM` to speed up inference.
   - `llama2-13b`
   - `llama2-34b`
@@ -562,48 +523,17 @@ python agentboard/eval_main.py \
 We also provide LLM customizations, please refer to [7.5 LLM Customization](#75-llm-customization) for more details.
 
 
-### 7.4 Code Structure
-
-The code structure of AgentBoard project is as follows:
-```txt
-AgentBoard
-├── agentboard
-│  ├── agents/              # Implementations of different llm-based agents
-│  ├── common/              # Registers for different tasks, models and agents
-│  ├── environment/         # The environment for each task
-│  ├── eval_main.py         # The main python script for evaluation
-│  ├── llm/                 # Inference interfaces for different LLMs
-│  ├── prompts/             # Prompt files for each task
-│  ├── tasks/               # The tasks for evaluation
-│  ├── utils/               # Some useful utils
-├── data/                # The evaluation data
-├── eval_configs/        # The config files for evaluation
-├── README.md
-├── requirements.txt     # The requirements for running this project
-├── results/             # The evaluation results after running eval_main.py
-├── scripts/
-├── setup.sh
-└── wandb/               # The wandb files for visualization
-```
-
-There are four main parts in AgentBoard project, and the relationship between them is as follows:
-<div align="center">
-
-<img src="./assets/code_structure.png" width="400">
-
-</div>
-
-### 7.5 LLM Customization
+### LLM Customization
 
 Please refer to [llm_customization.md](./assets/llm_customization.md) for more details about LLM customization.
 
 
-### 7.6 Agent Customization
+### Agent Customization
 
 Please refer to [agent_customization.md](./assets/agent_customization.md) for more details about agent customization.
 
 
-### 7.7 Runtime Estimation
+### Runtime Estimation
 
 The evaluation runtime for a language model depends on the device/API, model, and inference architecture used. In the case of open-source LLMs, the vllm inference speed is approximately 10 times faster than the huggingface pipeline.
 
@@ -619,7 +549,7 @@ The general formula for estimating the total time is `4h * speed`. Here are some
 |   Llama2-70b  |   8*V100   |          vllm          |     8s/round    |     28h    |
 |   Llama2-70b  |   4*A100   |          vllm          |     4s/round    |   13.5h    |
 
-## ️8. Citation
+## ️Citation
 If you find this repository useful, please consider giving star and citing our paper:
 ```
 @misc{ma2024agentboard,
@@ -633,7 +563,7 @@ If you find this repository useful, please consider giving star and citing our p
 
 ```
 
-## 9. License
+## License
 [![Apache-2.0 license](https://img.shields.io/badge/Code%20License-Apache--2.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 The AgentBoard codebase is licensed under a [Apache-2.0 License](https://www.apache.org/licenses/LICENSE-2.0).
