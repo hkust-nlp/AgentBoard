@@ -520,7 +520,7 @@ python agentboard/eval_main.py \
     --tasks ${TASK_NAME} \
     --model ${OPEN_SOURCE_MODEL_NAME}
 ```
-We also provide LLM customizations, please refer to [7.5 LLM Customization](#75-llm-customization) for more details.
+We also provide LLM customizations, please refer to [LLM Customization](#llm-customization) for more details.
 
 
 ### LLM Customization
