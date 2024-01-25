@@ -621,7 +621,15 @@ The general formula for estimating the total time is `4h * speed`. Here are some
 
 ## ️8. Citation
 If you find this repository useful, please consider giving star and citing our paper:
-```bibtex
+```
+@misc{ma2024agentboard,
+      title={AgentBoard: An Analytical Evaluation Board of Multi-turn LLM Agents}, 
+      author={Chang Ma and Junlei Zhang and Zhihao Zhu and Cheng Yang and Yujiu Yang and Yaohui Jin and Zhenzhong Lan and Lingpeng Kong and Junxian He},
+      year={2024},
+      eprint={2401.13178},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
 
 ```
 
