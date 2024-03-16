@@ -27,6 +27,7 @@
 
 ## What's New
 - **[2024.01.15]** 📣 AgentBoard is released.
+- **[2024.03.11]** 🥳 AgentBoard is accepted by LLMAgents @ ICLR 2024
 
 ## Introduction
 
