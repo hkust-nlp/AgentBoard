@@ -10,7 +10,7 @@ from common.registry import registry
 import traceback
 from beartype import beartype
 from beartype.door import is_bearable
-from playwright._impl._api_types import TimeoutError
+from playwright._impl._api_types import Error, TimeoutError
 from agents import load_agent
 from agents.vanilla_agent import VanillaAgent
 from llm import load_llm
@@ -204,6 +204,8 @@ URL: {url}"""
                 trajectory.append({"Reward":last_reward, "id":step_id})
             except TimeoutError as e:
                 raise
+            except Error as e:
+                raise
             except Exception as e:
                 raise
             step_id += 1
@@ -275,6 +277,11 @@ URL: {url}"""
                     f.write(f"[Config file id]: {config_file['task_id']}\n")
                     f.write(f"[Timeout Error] {repr(e)}\n")
                     f.write(traceback.format_exc())  # write stack trace to file
+            except Error as e:
+                with open(Path(self.result_dir) / "error.txt", "a") as f:
+                    f.write(f"[Config file id]: {config_file['task_id']}\n")
+                    f.write(f"[Net Error] {repr(e)}\n")
+                    f.write(traceback.format_exc())
             except requests.ConnectionError as e:
                 with open(Path(self.result_dir) / "error.txt", "a") as f:
                     f.write(f"[Config file id]: {config_file['task_id']}\n")
