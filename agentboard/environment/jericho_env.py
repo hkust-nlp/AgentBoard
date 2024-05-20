@@ -180,6 +180,20 @@ class Jericho(BaseEnvironment):
             return False
         
     def step(self, action):
+        invalid_action_responses = [
+            "[!",
+            "That's not a verb I",
+            "I didn't understand that sentence",
+            "I don't know the word",
+            "\"Huh?\" The wolf raises an eyebrow.",
+            "I haven't the slightest idea what you're referring to",
+            "Perhaps you would care to rephrase that",
+            "Whatever are you talking about",
+            "That's not a trick you know",
+            "I beg your pardon?",
+            "There was no verb in that sentence!",
+        ]
+
         if self.validate_check_valid_actions(action): # add a special action to check valid actions
             obs = "You can take the following actions: " + ", ".join(self._get_action_space())
             self.update_info(action, obs) 
@@ -189,7 +203,7 @@ class Jericho(BaseEnvironment):
             observation, reward, done, info = self.env.step(action)
             observation = self.clean_up_text(observation)
             self.update(action, observation, reward, done, info)
-            if '[!' in observation:
+            if any(s in observation for s in invalid_action_responses):
                 self.infos["action_is_valid"] = False
             else:
                 self.infos["action_is_valid"] = True
