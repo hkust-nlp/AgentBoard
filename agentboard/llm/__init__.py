@@ -4,13 +4,15 @@ from .claude import CLAUDE
 from .vllm import VLLM
 from common.registry import registry
 from .huggingface import HgModels
+from .human import HUMAN
 
 __all__ = [
     "OPENAI_GPT",
     "OPENAI_GPT_AZURE",
     "VLLM",
     "CLAUDE",
-    "HgModels"
+    "HgModels",
+    "HUMAN"
 ]
 
 
