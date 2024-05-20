@@ -13,6 +13,22 @@ agent:
   need_goal: True
 
 llm:
+  human:
+      name: human
+      engine: human
+      context_length: 128000
+      use_parser: False
+  gpt-4o:
+      name: gpt
+      engine: gpt-4o
+      context_length: 128000 # 4096
+      use_azure: False
+      temperature: 0.
+      top_p: 1
+      retry_delays: 20
+      max_retry_iters: 15
+      stop: "\n"
+      use_parser: False
   gpt-3.5-turbo-16k:
       name: gpt
       engine: gpt-3.5-turbo-16k
